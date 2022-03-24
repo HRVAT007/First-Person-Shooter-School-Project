@@ -9,6 +9,7 @@ public class RigidBodyMovement : MonoBehaviour
     private float xRotation;
 
     [SerializeField] private LayerMask floorMask;
+    [SerializeField] private LayerMask playerMask;
     [SerializeField] private Transform feetTransform;
     [SerializeField] private Transform playerCamera;
     [SerializeField] private Rigidbody playerBody;
@@ -51,7 +52,7 @@ public class RigidBodyMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(Physics.CheckSphere(feetTransform.position, 0.1f, floorMask))
+            if(Physics.CheckSphere(feetTransform.position, 0.3f, floorMask))
             {
                 playerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
