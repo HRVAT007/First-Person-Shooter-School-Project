@@ -8,24 +8,41 @@ public class RigidBodyMovement : MonoBehaviour
     private Vector2 playerMouseInput;
     private float xRotation;
 
+    [Header("Functional Options")]
+    [SerializeField] bool lockCursor = true;
+    [SerializeField] private bool canRun = true;
+    [SerializeField] private bool canCrouch = true;
+
+    [Header("Controls")]
+    [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
+    
     [SerializeField] private LayerMask floorMask;
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private Transform feetTransform;
     [SerializeField] private Transform playerCamera;
     [SerializeField] private Rigidbody playerBody;
-    [SerializeField] bool lockCursor = true;
-    [Space]
+    [SerializeField] private CapsuleCollider playerCollider;
+
+    [Header("Jumping Parameters")]
     [SerializeField] private float speed;
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
     [SerializeField] GameObject knee;
     [SerializeField] GameObject feet;
+
+    [Header("Stairs Walking Parameters")]
     [SerializeField] private float stepHeight = 0.3f;
     [SerializeField] private float stepSmooth = 0.1f;
+
+    [Header("Crouching Parameters")]
+    [SerializeField] private float originalHeight = 2f;
+    [SerializeField] private float reducedHeight = 0.5f;
+
 
     private void Awake()
     {
         playerBody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
         knee.transform.position = new Vector3(knee.transform.position.x, stepHeight, knee.transform.position.z);
     }
 
@@ -43,6 +60,7 @@ public class RigidBodyMovement : MonoBehaviour
         MovePlayer();
         StepClimb();
         MovePlayerCamera();
+        Crouch();
     }
 
     private void MovePlayer()
@@ -59,12 +77,31 @@ public class RigidBodyMovement : MonoBehaviour
         }
     }
 
+    private void Crouch()
+    {
+        if (Input.GetKeyDown(crouchKey))
+            GoDown();
+        else if (Input.GetKeyUp(crouchKey))
+            GoUp();
+    }
+
+    private void GoDown()
+    {
+        playerCollider.height = reducedHeight;
+    }
+
+    private void GoUp()
+    {
+        playerCollider.height = originalHeight;
+    }
+
     private void MovePlayerCamera()
     {
         xRotation -= playerMouseInput.y * sensitivity;
 
         transform.Rotate(0.0f, playerMouseInput.x * sensitivity, 0.0f);
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0.0f, 0.0f);
+        xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
     }
 
     void StepClimb()
