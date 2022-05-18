@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gravity = -13.0f;
     [SerializeField] [Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
     [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+    [SerializeField] private Transform _mainCamera;
 
     float cameraPitch = 0.0f;
     float velocityY = 0.0f;
@@ -33,12 +34,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
-    void Update()
-    {
-        UpdateMouseLook();
-        //UpdateMovement();
 
+    //void Update()
+    //{
+    //    UpdateMouseLook();
+    //    //UpdateMovement();
+
+    //}
+
+    void LateUpdate()
+    {
+        var cameraPosition = transform.position + Vector3.up;
+        _mainCamera.position = cameraPosition;
+        UpdateMouseLook();
     }
 
     void UpdateMouseLook()

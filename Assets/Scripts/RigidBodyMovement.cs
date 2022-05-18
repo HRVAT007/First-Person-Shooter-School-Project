@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class RigidBodyMovement : MonoBehaviour
 {
+    #region
+    public static Transform instance;
+
+    private void Awake()
+    {
+        instance = this.transform;
+        knee.transform.position = new Vector3(knee.transform.position.x, stepHeight, knee.transform.position.z);
+    }
+    #endregion
+
     private Vector3 playerMovementInput;
     private Vector2 playerMouseInput;
     private float xRotation;
 
     [Header("Functional Options")]
     [SerializeField] bool lockCursor = true;
-    [SerializeField] private bool canRun = true;
-    [SerializeField] private bool canCrouch = true;
+    //[SerializeField] private bool canRun = true;
+    //[SerializeField] private bool canCrouch = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
@@ -38,15 +48,28 @@ public class RigidBodyMovement : MonoBehaviour
     [SerializeField] private float originalHeight = 2f;
     [SerializeField] private float reducedHeight = 0.5f;
 
+    [Header("Camera Parameters")]
+    [SerializeField] private Transform _mainCamera;
 
-    private void Awake()
+
+    private void Start()
     {
-        playerBody = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<CapsuleCollider>();
-        knee.transform.position = new Vector3(knee.transform.position.x, stepHeight, knee.transform.position.z);
+        GetReferences();
     }
 
-    void Update()
+    //void Update()
+    //{
+    //    if (lockCursor)
+    //    {
+    //        Cursor.lockState = CursorLockMode.Locked;
+    //        Cursor.visible = false;
+    //    }
+
+    //    playerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+    //    playerMouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+    //}
+
+    private void Update()
     {
         if (lockCursor)
         {
@@ -59,8 +82,15 @@ public class RigidBodyMovement : MonoBehaviour
 
         MovePlayer();
         StepClimb();
-        MovePlayerCamera();
+        //MovePlayerCamera();
         Crouch();
+    }
+
+    private void LateUpdate()
+    {
+        var cameraPosition = transform.position + Vector3.up;
+        _mainCamera.position = cameraPosition;
+        MovePlayerCamera();
     }
 
     private void MovePlayer()
@@ -135,5 +165,11 @@ public class RigidBodyMovement : MonoBehaviour
                 playerBody.position -= new Vector3(0.0f, -stepSmooth, 0.0f);
             }
         }
+    }
+
+    private void GetReferences()
+    {
+        playerBody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
     }
 }
