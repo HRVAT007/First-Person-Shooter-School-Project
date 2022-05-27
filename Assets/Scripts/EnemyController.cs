@@ -61,8 +61,6 @@ public class EnemyController : MonoBehaviour
 
     private void RotateToTarget()
     {
-        //transform.LookAt(target);
-
         Vector3 direction = target.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
         transform.rotation = rotation;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class EnemySpawner : MonoBehaviour
     private SpawnState state = SpawnState.COUNTING;
 
     private int currentWave;
+
+    [SerializeField] private Text currentWaveText;
+    [SerializeField] private Text currentZombieText;
     
     //references
     [SerializeField] private Transform[] spawner;
@@ -31,7 +35,11 @@ public class EnemySpawner : MonoBehaviour
             if (!EnemiesDead())
                 return;
             else
+            {
                 FinishWave();
+                int currentWaveNumber = currentWave += 1;
+                currentWaveText.text = currentWaveNumber.ToString();
+            }
         }
         
         if (waveCountdown <= 0)
@@ -51,6 +59,11 @@ public class EnemySpawner : MonoBehaviour
     {
         waveCountdown = timeBetweenWaves;
         currentWave = 0;
+    }
+
+    private void ZombieCounter()
+    {
+        currentZombieText.text = enemyList.Count.ToString();
     }
 
     private IEnumerator SpawnWave(Wave wave)

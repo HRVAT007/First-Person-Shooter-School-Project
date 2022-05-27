@@ -20,8 +20,6 @@ public class RigidBodyMovement : MonoBehaviour
 
     [Header("Functional Options")]
     [SerializeField] bool lockCursor = true;
-    //[SerializeField] private bool canRun = true;
-    //[SerializeField] private bool canCrouch = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
@@ -57,18 +55,6 @@ public class RigidBodyMovement : MonoBehaviour
         GetReferences();
     }
 
-    //void Update()
-    //{
-    //    if (lockCursor)
-    //    {
-    //        Cursor.lockState = CursorLockMode.Locked;
-    //        Cursor.visible = false;
-    //    }
-
-    //    playerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-    //    playerMouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-    //}
-
     private void Update()
     {
         if (lockCursor)
@@ -82,7 +68,6 @@ public class RigidBodyMovement : MonoBehaviour
 
         MovePlayer();
         StepClimb();
-        //MovePlayerCamera();
         Crouch();
     }
 

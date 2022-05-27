@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : CharacterStats
 {
@@ -10,6 +11,12 @@ public class PlayerStats : CharacterStats
     {
         GetReferences();
         InitialVariables();
+    }
+
+    private void Update()
+    {
+        if (isDead)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void GetReferences()
