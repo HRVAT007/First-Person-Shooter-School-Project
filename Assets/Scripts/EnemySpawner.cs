@@ -21,7 +21,6 @@ public class EnemySpawner : MonoBehaviour
     private int currentWave;
 
     [SerializeField] private Text currentWaveText;
-    [SerializeField] private Text currentZombieText;
     
     //references
     [SerializeField] private Transform[] spawner;
@@ -59,11 +58,6 @@ public class EnemySpawner : MonoBehaviour
     {
         waveCountdown = timeBetweenWaves;
         currentWave = 0;
-    }
-
-    private void ZombieCounter()
-    {
-        currentZombieText.text = enemyList.Count.ToString();
     }
 
     private IEnumerator SpawnWave(Wave wave)
