@@ -11636,6 +11636,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 981407300}
     - target: {fileID: 8755004595573571637, guid: 4a894a783a339f24aa832ed55c0f5006, type: 3}
+      propertyPath: bloodEffect
+      value: 
+      objectReference: {fileID: 3157919570681910456, guid: 9f7dea600d66c1c4f9bdf64ac4f0c8f7, type: 3}
+    - target: {fileID: 8755004595573571637, guid: 4a894a783a339f24aa832ed55c0f5006, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 317705084}

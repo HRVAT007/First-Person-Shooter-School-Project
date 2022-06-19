@@ -40,6 +40,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private GameObject muzzleFlash, bulletHoleGraphics;
     [SerializeField] private Text bulletsLeftText;
     [SerializeField] private Text magazineSizeText;
+    [SerializeField] private GameObject bloodEffect;
 
     //controls
     [SerializeField] private KeyCode shootKey = KeyCode.Mouse0;
@@ -130,9 +131,15 @@ public class WeaponController : MonoBehaviour
                 var objectHealth = hit.collider.GetComponentInParent<CharacterStats>();
                 if (objectHealth != null)
                     if (hit.collider.name == "mixamorig:Neck")
+                    {
+                        SpawnBloodEffect(hit.point, hit.normal);
                         objectHealth.TakeDamage(headshotDamage);
-                else if (hit.collider.name != "mixamorig:Neck")
-                    objectHealth.TakeDamage(damage);
+                    }
+                    else if (hit.collider.name != "mixamorig:Neck")
+                    {
+                        objectHealth.TakeDamage(damage);
+                        SpawnBloodEffect(hit.point, hit.normal);
+                    }  
             }
         }
         else
@@ -176,6 +183,11 @@ public class WeaponController : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    private void SpawnBloodEffect(Vector3 position, Vector3 normal)
+    {
+        Instantiate(bloodEffect, position, Quaternion.FromToRotation(Vector3.up, normal));
     }
 
     public void StartRecoil(float recoilParam, float maxRecoil_xParam, float recoilSpeedParam)
