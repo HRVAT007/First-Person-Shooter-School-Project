@@ -88,6 +88,7 @@ public class RigidBodyMovement : MonoBehaviour
             if(Physics.CheckSphere(feetTransform.position, 0.3f, floorMask))
             {
                 playerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                playerBody.AddForce(Physics.gravity * (playerBody.mass * playerBody.mass));
             }
         }
     }
