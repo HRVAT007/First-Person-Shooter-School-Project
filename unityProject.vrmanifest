@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.firstpersonshooterschoolproject.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\teost\\Desktop\\projekt za školu\\First Person Shooter School Project\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "First Person Shooter School Project [Testing]"
+        }
+      }
+    }
+  ]
+}
