@@ -6,10 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes: []
   m_configObjects:
-<<<<<<< Updated upstream
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 0d1dc08ed85d1f64fb073f5079a401f5, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 241aaca00b1b17d45845365f47cb239d, type: 2}
-=======
-    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 6118a12acdbbbb141bd641870ebd82c9, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fb3196937cece9d459bf111dc50728ef, type: 2}
->>>>>>> Stashed changes
