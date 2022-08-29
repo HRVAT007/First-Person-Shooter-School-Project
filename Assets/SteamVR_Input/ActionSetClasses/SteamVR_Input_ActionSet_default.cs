@@ -81,14 +81,6 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean HeadsetOnHead
-        {
-            get
-            {
-                return SteamVR_Actions.default_HeadsetOnHead;
-            }
-        }
-        
         public virtual SteamVR_Action_Boolean SnapTurnLeft
         {
             get
@@ -102,6 +94,22 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.default_SnapTurnRight;
+            }
+        }
+        
+        public virtual SteamVR_Action_Vector2 TouchPad
+        {
+            get
+            {
+                return SteamVR_Actions.default_TouchPad;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean TouchPadClick
+        {
+            get
+            {
+                return SteamVR_Actions.default_TouchPadClick;
             }
         }
         
