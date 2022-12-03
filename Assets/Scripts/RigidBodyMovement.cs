@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class RigidBodyMovement : MonoBehaviour
 {
@@ -52,11 +53,21 @@ public class RigidBodyMovement : MonoBehaviour
 
     private void Start()
     {
+        //if (!isLocalPlayer)
+        //{
+        //    playerCamera.gameObject.SetActive(false);
+        //}
+        
         GetReferences();
     }
 
     private void Update()
     {
+        //if (!isLocalPlayer)
+        //{
+        //    return;
+        //}
+
         if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -73,6 +84,11 @@ public class RigidBodyMovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        //if (!isLocalPlayer)
+        //{
+        //    return;
+        //}
+        
         var cameraPosition = transform.position + Vector3.up;
         _mainCamera.position = cameraPosition;
         MovePlayerCamera();

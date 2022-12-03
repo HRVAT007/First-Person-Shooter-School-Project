@@ -74,6 +74,7 @@ public class WeaponController : MonoBehaviour
             bulletsLeftText.text = " ";
             magazineSizeText.text = " ";
         }
+        
     }
 
     private void MyInput()
@@ -114,36 +115,47 @@ public class WeaponController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, range))
         {
             Debug.Log(hit.collider.name);
+            var buildingHealth = hit.collider.GetComponent<BuildingStats>();
+            //instantiate sphere at hit point and add force to it and destroy it after 2 seconds
+            //Destroy(Instantiate(bullet, hit.point, Quaternion.identity), 0.5f);
+            if (buildingHealth == null) {
+                if (hit.collider.name == "Charachter")
+                {
+                    //targetPoint = hit.point;
+                    ////var objectHealth = hit.collider.GetComponent<CharacterStats>();
+                    //var _objectHealth = hit.collider.GetComponentInParent<CharacterStats>();
+                    //if (_objectHealth != null)
+                    //    _objectHealth.TakeDamage(0);
+                }
 
-            if (hit.collider.name == "Charachter")
+                else if (hit.collider.name != "Charachter")
+                {
+                    targetPoint = hit.point;
+                    //var objectHealth = hit.collider.GetComponent<CharacterStats>();
+                    var objectHealth = hit.collider.GetComponentInParent<CharacterStats>();
+                    if (objectHealth != null)
+                        if (hit.collider.name == "mixamorig:Neck")
+                        {
+                            SpawnBloodEffect(hit.point, hit.normal);
+                            objectHealth.TakeDamage(headshotDamage);
+                        }
+                        else if (hit.collider.name != "mixamorig:Neck")
+                        {
+                            objectHealth.TakeDamage(damage);
+                            SpawnBloodEffect(hit.point, hit.normal);
+                        }
+                }
+            }
+            else if (buildingHealth != null)
             {
-                targetPoint = hit.point;
-                //var objectHealth = hit.collider.GetComponent<CharacterStats>();
-                var _objectHealth = hit.collider.GetComponentInParent<CharacterStats>();
-                if (_objectHealth != null)
-                    _objectHealth.TakeDamage(0);
+                buildingHealth.TakeDamage(damage);
+            }
+            else
+            {
+                targetPoint = ray.GetPoint(75);
             }
 
-            else if (hit.collider.name != "Charachter")
-            {
-                targetPoint = hit.point;
-                //var objectHealth = hit.collider.GetComponent<CharacterStats>();
-                var objectHealth = hit.collider.GetComponentInParent<CharacterStats>();
-                if (objectHealth != null)
-                    if (hit.collider.name == "mixamorig:Neck")
-                    {
-                        SpawnBloodEffect(hit.point, hit.normal);
-                        objectHealth.TakeDamage(headshotDamage);
-                    }
-                    else if (hit.collider.name != "mixamorig:Neck")
-                    {
-                        objectHealth.TakeDamage(damage);
-                        SpawnBloodEffect(hit.point, hit.normal);
-                    }  
-            }
         }
-        else
-            targetPoint = ray.GetPoint(75);
 
         //instantiate bullet hole
         if (bulletHoleGraphics != null)
